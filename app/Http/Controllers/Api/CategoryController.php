@@ -30,7 +30,6 @@ class CategoryController extends Controller
 
         /* Validation */
         $validator = Validator::make($request->all(), [
-            'slug' => 'required|string',
             'name' => 'required|string',
         ]);
         
