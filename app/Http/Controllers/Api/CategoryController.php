@@ -14,7 +14,7 @@ class CategoryController extends Controller
     // get all categories
     public function categories(Request $request) {
         $all = Category::with(['tasks' => function($query) {
-            $query->orderBy('rank');
+            $query->orderBy('rank')->orderBy('id');
         }])->get();
 
         return response()->json($all, 200);
