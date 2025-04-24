@@ -11,9 +11,12 @@ use App\Models\Category;
 class CategoryController extends Controller
 {
 
-    // get all categories by pagination
+    // get all categories
     public function categories(Request $request) {
-        $all = Category::orderByDesc('id')->paginate(25);
+        $all = Category::with(['tasks' => function($query) {
+            $query->orderBy('rank');
+        }])->get();
+
         return response()->json($all, 200);
     }
 

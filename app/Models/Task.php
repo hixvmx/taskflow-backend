@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Task extends Model
 {
 
-    protected $fillable = ['name', 'slug'];
+    protected $fillable = ['name', 'description', 'tags', 'slug', 'category', 'rank'];
 
 
 
@@ -22,18 +22,19 @@ class Category extends Model
     }
 
 
-    // Generate a 6-digit unique number
+    // Generate a 8-digit unique number
     private function generateUniqueValue()
     {
         do {
-            $slug = str_pad(mt_rand(1, 999999), 6, '0', STR_PAD_LEFT);
-        } while (Category::where('slug', $slug)->exists());
+            $slug = str_pad(mt_rand(1, 99999999), 8, '0', STR_PAD_LEFT);
+        } while (Task::where('slug', $slug)->exists());
 
         return $slug;
     }
 
-    public function tasks()
+    
+    public function category()
     {
-        return $this->hasMany(Task::class, 'category', 'slug');
+        return $this->belongsTo(Category::class, 'category', 'slug');
     }
 }
