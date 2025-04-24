@@ -10,6 +10,6 @@ use App\Http\Controllers\Api\CategoryController;
 
 Route::controller(CategoryController::class)->prefix('categories')->group(function() {
     Route::get('/', 'categories');
-    Route::post('create', 'create');
-    Route::put('update', 'update');
+    Route::post('/', 'create');
+    Route::put('/', 'update');
 });
