@@ -17,4 +17,5 @@ Route::controller(CategoryController::class)->prefix('categories')->group(functi
 
 Route::controller(TaskController::class)->prefix('tasks')->group(function() {
     Route::post('/', 'create');
+    Route::put('/update-order', 'updateTasksOrder');
 });

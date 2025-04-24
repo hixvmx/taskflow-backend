@@ -41,4 +41,31 @@ class TaskController extends Controller
 
         return response()->json(["message"], 200);
     }
+
+
+    // update tasks order
+    public function updateTasksOrder(Request $request) {
+        $categories = $request->input('categories');
+
+        foreach ($categories as $categoryData) {
+            $category = Category::where('slug', $categoryData['slug'])->first();
+
+            if ($category) {
+                foreach ($categoryData['tasks'] as $taskData) {
+                    $task = Task::where('slug', $taskData['slug'])->first();
+
+                    if ($task) {
+                        if ($task->category !== $category->slug) {
+                            $task->category = $category->slug;
+                        }
+                        // Update the task's rank
+                        $task->rank = $taskData['rank'];
+                        $task->save();
+                    }
+                }
+            }
+        }
+
+        return response()->json(['message' => 'success!']);
+    }
 }
